@@ -1,27 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
-{ 
-    int tam;
+// Função principal
+int main() {
+    int tamanho, *vetor;
 
-    scanf("%d", &tam);
-
-    if(tam == 0){
-        printf("[vazio]");
-}
-else{
-int *vetor = (int*) malloc(tam*sizeof(int));
- for(int i = 0; i<tam;i++){
-     scanf("%d", &vetor[i]);
- }
-    printf("[%d", vetor[0]);
-    
-    for(int i = 1; i < tam;i++){
-       printf(",%d", vetor[i]);      
+    // Entrada: Lê o tamanho do vetor
+    printf("Digite o tamanho do vetor: ");
+    if (scanf("%d", &tamanho) != 1 || tamanho < 0) {
+        printf("Entrada inválida. O tamanho deve ser um número inteiro não negativo.\n");
+        return 1;
     }
-printf("]");
-free(vetor);
- }
-  return 0;
+
+    // Verifica se o vetor é vazio
+    if (tamanho == 0) {
+        printf("[vazio]\n");
+        return 0;
+    }
+
+    // Aloca dinamicamente a memória para o vetor
+    vetor = (int *)malloc(tamanho * sizeof(int));
+    if (vetor == NULL) {
+        fprintf(stderr, "Erro: não foi possível alocar memória.\n");
+        return 1;
+    }
+
+    // Entrada: Lê os elementos do vetor
+    printf("Digite os %d elementos do vetor: ", tamanho);
+    for (int i = 0; i < tamanho; i++) {
+        if (scanf("%d", &vetor[i]) != 1) {
+            fprintf(stderr, "Erro: entrada inválida para os elementos do vetor.\n");
+            free(vetor); // Libera a memória antes de sair
+            return 1;
+        }
+    }
+
+    // Saída: Apresenta os dados do vetor no formato esperado
+    printf("[");
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d", vetor[i]);
+        if (i < tamanho - 1) {
+            printf(",");
+        }
+    }
+    printf("]\n");
+
+    // Desaloca a memória
+    free(vetor);
+
+    return 0;
 }
