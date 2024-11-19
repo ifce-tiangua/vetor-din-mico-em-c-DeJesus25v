@@ -1,37 +1,39 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include<stdlib.h>
 
-int main(){
-    int **matriz;
-    int linha, coluna;
-    int i, j;
-    
-    scanf("%d", &linha);
-    scanf("%d", &coluna);
+int main()
+{
+  int n;
+  scanf("%d", &n);
+  int *p = NULL;
 
-    matriz = (int **)malloc(linha*sizeof(int*));
-    for (i=0;i<linha;i++){
-       matriz[i] = (int*)malloc(coluna*sizeof(int));
+  if(n == 0){
+    printf("[vazio]\n");
+    return 0;
+  }
+
+  p = (int*)malloc(sizeof(int)*n);
+
+  for(int i  = 0; i < n; i++)
+  {
+    scanf("%d", &p[i]);
+  }
+
+    printf("[");
+
+    for(int i = 0; i < n; i++)
+  {
+    if(i != n-1)
+    {
+      printf("%d, ",p[i]);
     }
-     for (i = 0;i<linha;i++){
-         for(j = 0;j<coluna;j++){
-             scanf("%d", &matriz[i][j]);
-         }
-     }
+    else
+    {
+      printf("%d]\n", p[i]);
+    }
+  }
 
-     for (i = 0;i<linha;i++){
-         for (j = 0;j<coluna;j++){
-         printf("%d", matriz[i][j]);
-             if(j < coluna - 1){
-                 printf("");
-             }
-         }
-         printf("\n");    
-     }
-       for (i = 0;i<linha;i++){
-           free(matriz[i]);
-       }
-         free(matriz);
+  free(p);
 
-        return 0;
+  return 0;
 }
